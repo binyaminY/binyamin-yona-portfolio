@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const PHOTO_URL = "/mnt/user-data/uploads/WhatsApp_Image_2026-03-06_at_18_37_19.jpeg";
+const PHOTO_URL = "/profile.jpeg";
 
 const screenshot = (url) =>
   `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`;
