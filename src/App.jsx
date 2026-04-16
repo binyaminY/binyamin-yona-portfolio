@@ -276,17 +276,6 @@ function HeroSection({ onContact }) {
               }}
             />
           </div>
-          <div style={{
-            position: "absolute", bottom: -16, right: -20, zIndex: 10,
-            background: "#fff", borderRadius: "4px",
-            padding: "0.6rem 1.1rem",
-            boxShadow: "0 8px 28px rgba(26,22,18,0.12)",
-            border: "1px solid rgba(0,0,0,0.06)",
-          }}>
-            <span style={{ fontFamily: "'Rubik', sans-serif", fontSize: "0.75rem", letterSpacing: "0.06em", color: "#9c8265" }}>
-              זמין · 2026
-            </span>
-          </div>
         </div>
       </div>
     </section>
