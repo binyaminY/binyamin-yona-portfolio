@@ -207,7 +207,7 @@ function HeroSection({ onContact }) {
           color: "#9c8265", marginBottom: "1.4rem",
           opacity: 0, animation: "fadeUp 0.8s 0.1s forwards",
         }}>
-          מפתח אפליקציות · ישראל
+          ישראל
         </p>
         <h1 style={{
           fontFamily: "'Rubik', sans-serif",
@@ -222,10 +222,6 @@ function HeroSection({ onContact }) {
           שלום, שמי<br />
           <em style={{ fontStyle: "italic", color: "#9c8265" }}>בנימין יונה</em>
         </h1>
-        <div style={{
-          width: 48, height: 1, background: "#1a1612", marginBottom: "2rem",
-          opacity: 0, animation: "fadeUp 0.8s 0.4s forwards",
-        }} />
         <p style={{
           fontFamily: "'Rubik', sans-serif", fontWeight: 300,
           fontSize: "1.1rem", lineHeight: 1.85,
