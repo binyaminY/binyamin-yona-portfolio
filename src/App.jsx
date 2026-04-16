@@ -201,14 +201,6 @@ function HeroSection({ onContact }) {
       gap: "6vw", flexWrap: "wrap",
     }}>
       <div style={{ flex: "1 1 340px", zIndex: 1 }}>
-        <p style={{
-          fontFamily: "'Rubik', sans-serif", fontSize: "0.78rem",
-          letterSpacing: "0.08em",
-          color: "#9c8265", marginBottom: "1.4rem",
-          opacity: 0, animation: "fadeUp 0.8s 0.1s forwards",
-        }}>
-          ישראל
-        </p>
         <h1 style={{
           fontFamily: "'Rubik', sans-serif",
           fontWeight: 600,
