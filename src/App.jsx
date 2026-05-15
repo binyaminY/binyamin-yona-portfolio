@@ -26,6 +26,12 @@ const projects = [
     link: "https://java-trainer-two.vercel.app",
     image: screenshot("https://java-trainer-two.vercel.app"),
   },
+  {
+    id: 4,
+    title: "Data Structures",
+    link: "https://data-structures-beta.vercel.app",
+    image: screenshot("https://data-structures-beta.vercel.app"),
+  },
 ];
 
 function ContactModal({ onClose }) {
