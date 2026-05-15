@@ -32,6 +32,14 @@ const projects = [
     link: "https://data-structures-beta.vercel.app",
     image: screenshot("https://data-structures-beta.vercel.app"),
   },
+  {
+    id: 5,
+    title: "המתמידים",
+    link: "https://hamatmidim.vercel.app",
+    image: screenshot("https://hamatmidim.vercel.app"),
+    extraLink: "https://hamatmidim.vercel.app",
+    extraLabel: "לאתר",
+  },
 ];
 
 function ContactModal({ onClose }) {
@@ -297,15 +305,10 @@ function HeroSection({ onContact }) {
 function ProjectCard({ project }) {
   const [hovered, setHovered] = useState(false);
   return (
-    <a
-      href={project.link}
-      target="_blank"
-      rel="noopener noreferrer"
+    <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        textDecoration: "none",
-        display: "block",
         borderRadius: "6px",
         overflow: "hidden",
         boxShadow: hovered ? "0 20px 50px rgba(26,22,18,0.18)" : "0 8px 24px rgba(26,22,18,0.08)",
@@ -314,31 +317,94 @@ function ProjectCard({ project }) {
         background: "#fff",
       }}
     >
-      <img
-        src={project.image}
-        alt={project.title}
-        style={{ width: "100%", aspectRatio: "16/9", objectFit: "cover", display: "block" }}
-      />
-      <div style={{ padding: "1.2rem 1.4rem" }}>
+      <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block" }}>
+        <img
+          src={project.image}
+          alt={project.title}
+          style={{ width: "100%", aspectRatio: "16/9", objectFit: "cover", display: "block" }}
+        />
+      </a>
+      <div style={{ padding: "1.2rem 1.4rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <h3 style={{ fontFamily: "'Rubik', sans-serif", fontWeight: 600, fontSize: "1.3rem", color: "#1a1612" }}>
           {project.title}
         </h3>
+        {project.extraLink && (
+          <a
+            href={project.extraLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: "'Rubik', sans-serif", fontSize: "0.82rem", fontWeight: 500,
+              color: "#9c8265", textDecoration: "none", letterSpacing: "0.04em",
+              border: "1px solid #c8b99a", borderRadius: "3px",
+              padding: "0.4rem 0.9rem",
+              transition: "color 0.2s, border-color 0.2s",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.color = "#1a1612"; e.currentTarget.style.borderColor = "#1a1612"; }}
+            onMouseLeave={e => { e.currentTarget.style.color = "#9c8265"; e.currentTarget.style.borderColor = "#c8b99a"; }}
+          >
+            {project.extraLabel || "לאתר"}
+          </a>
+        )}
       </div>
-    </a>
+    </div>
   );
 }
 
+const PAGE_SIZE = 4;
+
 function ProjectsSection() {
+  const [page, setPage] = useState(0);
+  const totalPages = Math.ceil(projects.length / PAGE_SIZE);
+  const visible = projects.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+
   return (
     <section id="work" className="projects-section" style={{ maxWidth: 1280, margin: "0 auto", padding: "6rem 5vw 8rem" }}>
       <p style={{ fontFamily: "'Rubik', sans-serif", fontSize: "0.75rem", letterSpacing: "0.08em", color: "#9c8265", marginBottom: "0.8rem" }}>
         התוצרים שלי
       </p>
-      <h2 style={{ fontFamily: "'Rubik', sans-serif", fontWeight: 600, fontSize: "clamp(2rem, 3.5vw, 3rem)", color: "#1a1612", marginBottom: "3rem" }}>
-        פרויקטים
-      </h2>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "3rem", flexWrap: "wrap", gap: "1rem" }}>
+        <h2 style={{ fontFamily: "'Rubik', sans-serif", fontWeight: 600, fontSize: "clamp(2rem, 3.5vw, 3rem)", color: "#1a1612" }}>
+          פרויקטים
+        </h2>
+        {totalPages > 1 && (
+          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+            <button
+              onClick={() => setPage(p => p - 1)}
+              disabled={page === 0}
+              style={{
+                width: 42, height: 42, borderRadius: "50%",
+                border: "1px solid #c8b99a", background: "none", cursor: page === 0 ? "default" : "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                color: page === 0 ? "#c8b99a" : "#1a1612",
+                transition: "border-color 0.2s, color 0.2s",
+                fontSize: "1.1rem",
+              }}
+              onMouseEnter={e => { if (page > 0) { e.currentTarget.style.borderColor = "#1a1612"; } }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "#c8b99a"; }}
+            >‹</button>
+            <span style={{ fontFamily: "'Rubik', sans-serif", fontSize: "0.82rem", color: "#9c8265" }}>
+              {page + 1} / {totalPages}
+            </span>
+            <button
+              onClick={() => setPage(p => p + 1)}
+              disabled={page === totalPages - 1}
+              style={{
+                width: 42, height: 42, borderRadius: "50%",
+                border: "1px solid #c8b99a", background: "none", cursor: page === totalPages - 1 ? "default" : "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                color: page === totalPages - 1 ? "#c8b99a" : "#1a1612",
+                transition: "border-color 0.2s, color 0.2s",
+                fontSize: "1.1rem",
+              }}
+              onMouseEnter={e => { if (page < totalPages - 1) { e.currentTarget.style.borderColor = "#1a1612"; } }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "#c8b99a"; }}
+            >›</button>
+          </div>
+        )}
+      </div>
       <div className="projects-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "2rem" }}>
-        {projects.map(p => <ProjectCard key={p.id} project={p} />)}
+        {visible.map(p => <ProjectCard key={p.id} project={p} />)}
       </div>
     </section>
   );
