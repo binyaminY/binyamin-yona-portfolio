@@ -37,8 +37,6 @@ const projects = [
     title: "המתמידים",
     link: "https://hamatmidim.vercel.app",
     image: screenshot("https://hamatmidim.vercel.app"),
-    extraLink: "https://hamatmidim.vercel.app",
-    extraLabel: "לאתר",
   },
 ];
 
