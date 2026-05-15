@@ -20,6 +20,12 @@ const projects = [
     link: "https://afula-app.vercel.app",
     image: screenshot("https://afula-app.vercel.app"),
   },
+  {
+    id: 3,
+    title: "Java Trainer",
+    link: "https://java-trainer-two.vercel.app",
+    image: screenshot("https://java-trainer-two.vercel.app"),
+  },
 ];
 
 function ContactModal({ onClose }) {
