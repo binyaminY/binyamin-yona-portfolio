@@ -351,60 +351,17 @@ function ProjectCard({ project }) {
   );
 }
 
-const PAGE_SIZE = 4;
-
 function ProjectsSection() {
-  const [page, setPage] = useState(0);
-  const totalPages = Math.ceil(projects.length / PAGE_SIZE);
-  const visible = projects.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
-
   return (
     <section id="work" className="projects-section" style={{ maxWidth: 1280, margin: "0 auto", padding: "6rem 5vw 8rem" }}>
       <p style={{ fontFamily: "'Rubik', sans-serif", fontSize: "0.75rem", letterSpacing: "0.08em", color: "#9c8265", marginBottom: "0.8rem" }}>
         התוצרים שלי
       </p>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "3rem", flexWrap: "wrap", gap: "1rem" }}>
-        <h2 style={{ fontFamily: "'Rubik', sans-serif", fontWeight: 600, fontSize: "clamp(2rem, 3.5vw, 3rem)", color: "#1a1612" }}>
-          פרויקטים
-        </h2>
-        {totalPages > 1 && (
-          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-            <button
-              onClick={() => setPage(p => p - 1)}
-              disabled={page === 0}
-              style={{
-                width: 42, height: 42, borderRadius: "50%",
-                border: "1px solid #c8b99a", background: "none", cursor: page === 0 ? "default" : "pointer",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                color: page === 0 ? "#c8b99a" : "#1a1612",
-                transition: "border-color 0.2s, color 0.2s",
-                fontSize: "1.1rem",
-              }}
-              onMouseEnter={e => { if (page > 0) { e.currentTarget.style.borderColor = "#1a1612"; } }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = "#c8b99a"; }}
-            >‹</button>
-            <span style={{ fontFamily: "'Rubik', sans-serif", fontSize: "0.82rem", color: "#9c8265" }}>
-              {page + 1} / {totalPages}
-            </span>
-            <button
-              onClick={() => setPage(p => p + 1)}
-              disabled={page === totalPages - 1}
-              style={{
-                width: 42, height: 42, borderRadius: "50%",
-                border: "1px solid #c8b99a", background: "none", cursor: page === totalPages - 1 ? "default" : "pointer",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                color: page === totalPages - 1 ? "#c8b99a" : "#1a1612",
-                transition: "border-color 0.2s, color 0.2s",
-                fontSize: "1.1rem",
-              }}
-              onMouseEnter={e => { if (page < totalPages - 1) { e.currentTarget.style.borderColor = "#1a1612"; } }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = "#c8b99a"; }}
-            >›</button>
-          </div>
-        )}
-      </div>
+      <h2 style={{ fontFamily: "'Rubik', sans-serif", fontWeight: 600, fontSize: "clamp(2rem, 3.5vw, 3rem)", color: "#1a1612", marginBottom: "3rem" }}>
+        פרויקטים
+      </h2>
       <div className="projects-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "2rem" }}>
-        {visible.map(p => <ProjectCard key={p.id} project={p} />)}
+        {projects.map(p => <ProjectCard key={p.id} project={p} />)}
       </div>
     </section>
   );
