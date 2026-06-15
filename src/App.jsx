@@ -38,6 +38,12 @@ const projects = [
     link: "https://hamatmidim.vercel.app",
     image: screenshot("https://hamatmidim.vercel.app"),
   },
+  {
+    id: 6,
+    title: "משחק מבחן – הסכסוך הישראלי-ערבי",
+    link: "https://exam-game-rho.vercel.app",
+    image: screenshot("https://exam-game-rho.vercel.app"),
+  },
 ];
 
 function ContactModal({ onClose }) {
