@@ -319,6 +319,8 @@ function ProjectCard({ project }) {
         transition: "box-shadow 0.3s, transform 0.3s",
         transform: hovered ? "translateY(-4px)" : "translateY(0)",
         background: "#fff",
+        width: "340px",
+        flexShrink: 0,
       }}
     >
       <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block" }}>
@@ -357,15 +359,22 @@ function ProjectCard({ project }) {
 
 function ProjectsSection() {
   return (
-    <section id="work" className="projects-section" style={{ maxWidth: 1280, margin: "0 auto", padding: "6rem 5vw 8rem" }}>
-      <p style={{ fontFamily: "'Rubik', sans-serif", fontSize: "0.75rem", letterSpacing: "0.08em", color: "#9c8265", marginBottom: "0.8rem" }}>
-        התוצרים שלי
-      </p>
-      <h2 style={{ fontFamily: "'Rubik', sans-serif", fontWeight: 600, fontSize: "clamp(2rem, 3.5vw, 3rem)", color: "#1a1612", marginBottom: "3rem" }}>
-        פרויקטים
-      </h2>
-      <div className="projects-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "2rem" }}>
-        {projects.map(p => <ProjectCard key={p.id} project={p} />)}
+    <section id="work" className="projects-section" style={{ padding: "6rem 0 8rem" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 5vw" }}>
+        <p style={{ fontFamily: "'Rubik', sans-serif", fontSize: "0.75rem", letterSpacing: "0.08em", color: "#9c8265", marginBottom: "0.8rem" }}>
+          התוצרים שלי
+        </p>
+        <h2 style={{ fontFamily: "'Rubik', sans-serif", fontWeight: 600, fontSize: "clamp(2rem, 3.5vw, 3rem)", color: "#1a1612", marginBottom: "3rem" }}>
+          פרויקטים
+        </h2>
+      </div>
+      <div className="projects-scroll-wrapper" style={{ overflowX: "auto", paddingBottom: "1.2rem" }}>
+        <div className="projects-row" style={{
+          display: "flex", flexDirection: "row", gap: "2rem",
+          padding: "0 5vw", width: "max-content",
+        }}>
+          {projects.map(p => <ProjectCard key={p.id} project={p} />)}
+        </div>
       </div>
     </section>
   );
@@ -389,6 +398,11 @@ export default function Portfolio() {
           from { opacity: 0; transform: translateY(24px); }
           to   { opacity: 1; transform: translateY(0); }
         }
+        .projects-scroll-wrapper::-webkit-scrollbar { height: 4px; }
+        .projects-scroll-wrapper::-webkit-scrollbar-track { background: #faf8f4; }
+        .projects-scroll-wrapper::-webkit-scrollbar-thumb { background: #c8b99a; border-radius: 99px; }
+        .projects-scroll-wrapper { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+        .projects-row > * { scroll-snap-align: start; }
         @media (max-width: 640px) {
           .hero-section {
             flex-direction: column !important;
@@ -406,11 +420,9 @@ export default function Portfolio() {
             width: 100% !important;
           }
           .nav-links { display: none !important; }
-          .projects-grid {
-            grid-template-columns: 1fr !important;
-          }
+          .projects-row > * { width: 80vw !important; }
           .projects-section {
-            padding: 3rem 6vw 5rem !important;
+            padding: 3rem 0 5rem !important;
           }
         }
       `}</style>
