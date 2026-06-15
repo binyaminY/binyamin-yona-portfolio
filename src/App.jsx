@@ -44,6 +44,12 @@ const projects = [
     link: "https://exam-game-rho.vercel.app",
     image: screenshot("https://exam-game-rho.vercel.app"),
   },
+  {
+    id: 7,
+    title: "Tree Traversal Master",
+    link: "https://tree-traversal-master.vercel.app",
+    image: screenshot("https://tree-traversal-master.vercel.app"),
+  },
 ];
 
 function ContactModal({ onClose }) {
