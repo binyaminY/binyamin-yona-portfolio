@@ -50,6 +50,12 @@ const projects = [
     link: "https://tree-traversal-master.vercel.app",
     image: screenshot("https://tree-traversal-master.vercel.app"),
   },
+  {
+    id: 8,
+    title: "Access App",
+    link: "https://access-app23.vercel.app",
+    image: screenshot("https://access-app23.vercel.app"),
+  },
 ];
 
 function ContactModal({ onClose }) {
