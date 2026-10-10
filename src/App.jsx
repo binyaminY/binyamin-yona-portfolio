@@ -4,15 +4,15 @@ const PHOTO_URL = "/profile.jpeg";
 const FORMSPREE_URL = "https://formspree.io/f/xqeggroe";
 // Note: make sure benyona12@gmail.com is set as the recipient in Formspree dashboard
 
-const screenshot = (url) =>
-  `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`;
+const screenshot = (url, force = false) =>
+  `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url${force ? "&force=true" : ""}`;
 
 const projects = [
   {
     id: 1,
     title: "History",
     link: "https://history-rosy-eight.vercel.app",
-    image: screenshot("https://history-rosy-eight.vercel.app"),
+    image: screenshot("https://history-rosy-eight.vercel.app", true),
   },
   {
     id: 2,
