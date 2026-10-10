@@ -371,7 +371,7 @@ function ProjectCard({ project }) {
 
 function ProjectsSection() {
   return (
-    <section id="work" className="projects-section" style={{ padding: "6rem 0 8rem" }}>
+    <section id="work" className="projects-section" style={{ padding: "3rem 0 8rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 5vw" }}>
         <p style={{ fontFamily: "'Rubik', sans-serif", fontSize: "0.75rem", letterSpacing: "0.08em", color: "#9c8265", marginBottom: "0.8rem" }}>
           התוצרים שלי
