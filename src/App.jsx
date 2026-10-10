@@ -61,6 +61,7 @@ function ContactModal({ onClose }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (status === "sending") return;
     setStatus("sending");
     const data = new FormData(e.target);
     try {
@@ -118,6 +119,8 @@ function ContactModal({ onClose }) {
           </p>
         ) : (
           <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true"
+              style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }} />
             {[["name", "שם"], ["email", "מייל"]].map(([name, label]) => (
               <div key={name}>
                 <label style={{ fontFamily: "'Rubik', sans-serif", fontSize: "0.78rem", color: "#9c8265", display: "block", marginBottom: "0.4rem" }}>
@@ -126,6 +129,7 @@ function ContactModal({ onClose }) {
                 <input
                   name={name}
                   required
+                  maxLength={name === "email" ? 120 : 80}
                   type={name === "email" ? "email" : "text"}
                   style={{
                     width: "100%", padding: "0.7rem 1rem",
@@ -144,6 +148,7 @@ function ContactModal({ onClose }) {
               <textarea
                 name="message"
                 required
+                maxLength={2000}
                 rows={4}
                 style={{
                   width: "100%", padding: "0.7rem 1rem",
