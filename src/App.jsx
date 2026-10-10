@@ -229,8 +229,8 @@ function NavBar({ onContact }) {
 function HeroSection({ onContact }) {
   return (
     <section id="about" className="hero-section" style={{
-      minHeight: "100vh", display: "flex", alignItems: "center",
-      padding: "100px 5vw 0",
+      minHeight: "auto", display: "flex", alignItems: "center",
+      padding: "100px 5vw 1rem",
       maxWidth: 1280, margin: "0 auto",
       gap: "6vw", flexWrap: "wrap",
     }}>
