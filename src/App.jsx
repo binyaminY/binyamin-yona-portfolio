@@ -21,34 +21,32 @@ const projects = [
     image: screenshot("https://afula-app.vercel.app"),
   },
   {
-    id: 3,
-    title: "Java Trainer",
-    link: "https://java-trainer-two.vercel.app",
-    image: screenshot("https://java-trainer-two.vercel.app"),
-  },
-  {
     id: 4,
     title: "Data Structures",
     link: "https://data-structures-beta.vercel.app",
     image: screenshot("https://data-structures-beta.vercel.app"),
+    college: true,
   },
   {
     id: 5,
     title: "המתמידים",
     link: "https://hamatmidim.vercel.app",
     image: screenshot("https://hamatmidim.vercel.app"),
+    college: true,
   },
   {
     id: 6,
     title: "משחק מבחן – הסכסוך הישראלי-ערבי",
     link: "https://exam-game-rho.vercel.app",
     image: screenshot("https://exam-game-rho.vercel.app"),
+    college: true,
   },
   {
     id: 7,
     title: "Tree Traversal Master",
     link: "https://tree-traversal-master.vercel.app",
     image: screenshot("https://tree-traversal-master.vercel.app"),
+    college: true,
   },
   {
     id: 8,
@@ -369,25 +367,44 @@ function ProjectCard({ project }) {
   );
 }
 
+function ProjectRow({ items }) {
+  return (
+    <div className="projects-scroll-wrapper" style={{ overflowX: "auto", paddingBottom: "1.2rem" }}>
+      <div className="projects-row" style={{
+        display: "flex", flexDirection: "row", gap: "2rem",
+        padding: "0 5vw", width: "max-content",
+      }}>
+        {items.map(p => <ProjectCard key={p.id} project={p} />)}
+      </div>
+    </div>
+  );
+}
+
+function ProjectGroupTitle({ children }) {
+  return (
+    <h3 style={{ fontFamily: "'Rubik', sans-serif", fontWeight: 500, fontSize: "1.2rem", color: "#5a5048", margin: "3rem 0 1.5rem", padding: "0 5vw" }}>
+      {children}
+    </h3>
+  );
+}
+
 function ProjectsSection() {
+  const general = projects.filter(p => !p.college);
+  const college = projects.filter(p => p.college);
   return (
     <section id="work" className="projects-section" style={{ padding: "3rem 0 8rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 5vw" }}>
         <p style={{ fontFamily: "'Rubik', sans-serif", fontSize: "0.75rem", letterSpacing: "0.08em", color: "#9c8265", marginBottom: "0.8rem" }}>
           התוצרים שלי
         </p>
-        <h2 style={{ fontFamily: "'Rubik', sans-serif", fontWeight: 600, fontSize: "clamp(2rem, 3.5vw, 3rem)", color: "#1a1612", marginBottom: "3rem" }}>
+        <h2 style={{ fontFamily: "'Rubik', sans-serif", fontWeight: 600, fontSize: "clamp(2rem, 3.5vw, 3rem)", color: "#1a1612", marginBottom: "1rem" }}>
           פרויקטים
         </h2>
       </div>
-      <div className="projects-scroll-wrapper" style={{ overflowX: "auto", paddingBottom: "1.2rem" }}>
-        <div className="projects-row" style={{
-          display: "flex", flexDirection: "row", gap: "2rem",
-          padding: "0 5vw", width: "max-content",
-        }}>
-          {projects.map(p => <ProjectCard key={p.id} project={p} />)}
-        </div>
-      </div>
+      <ProjectGroupTitle>פרויקטים כלליים</ProjectGroupTitle>
+      <ProjectRow items={general} />
+      <ProjectGroupTitle>פרויקטים מקורסים במכללה</ProjectGroupTitle>
+      <ProjectRow items={college} />
     </section>
   );
 }
