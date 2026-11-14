@@ -13,7 +13,7 @@ const projects = [
     id: 1,
     title: "History",
     link: "https://history-rosy-eight.vercel.app",
-    image: screenshot("https://history-rosy-eight.vercel.app", true),
+    image: "/previews/history.png",
   },
   {
     id: 2,
@@ -53,7 +53,7 @@ const projects = [
     id: 8,
     title: "Access App",
     link: "https://access-app23.vercel.app",
-    image: screenshot("https://access-app23.vercel.app"),
+    image: "/previews/access-app.png",
   },
 ];
 
