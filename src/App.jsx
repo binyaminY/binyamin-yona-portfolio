@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import "./App.css";
 
 const PHOTO_URL = "/profile.jpeg";
 const FORMSPREE_URL = "https://formspree.io/f/xqeggroe";
@@ -185,291 +186,48 @@ function ContactModal({ onClose }) {
   );
 }
 
-function NavBar({ onContact }) {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", h);
-    return () => window.removeEventListener("scroll", h);
-  }, []);
-
+function ProjectCard({ project, index }) {
+  const [failed, setFailed] = useState(false);
   return (
-    <nav style={{
-      position: "fixed", top: 0, left: 0, right: 0, zIndex: 200,
-      height: 68,
-      display: "flex", alignItems: "center", justifyContent: "space-between",
-      padding: "0 5vw",
-      background: scrolled ? "rgba(250,248,244,0.92)" : "transparent",
-      backdropFilter: scrolled ? "blur(20px)" : "none",
-      borderBottom: scrolled ? "1px solid rgba(0,0,0,0.06)" : "none",
-      transition: "all 0.45s cubic-bezier(0.4,0,0.2,1)",
-    }}>
-      <span style={{ fontFamily: "'Rubik', sans-serif", fontSize: "1.35rem", fontWeight: 600, letterSpacing: "0.02em", color: "#1a1612" }}>
-        בנימין יונה
-      </span>
-      <div className="nav-links" style={{ display: "flex", gap: "2.4rem", alignItems: "center" }}>
-        {[["אודות", "#about"], ["תוצרים", "#work"]].map(([label, href]) => (
-          <a key={label} href={href} style={{
-            fontFamily: "'Rubik', sans-serif", fontSize: "0.88rem", letterSpacing: "0.04em",
-            color: "#4a4036", textDecoration: "none",
-            transition: "color 0.2s",
-          }}
-            onMouseEnter={e => e.target.style.color = "#1a1612"}
-            onMouseLeave={e => e.target.style.color = "#4a4036"}
-          >{label}</a>
-        ))}
-        <button onClick={onContact} style={{
-          fontFamily: "'Rubik', sans-serif", fontSize: "0.88rem", letterSpacing: "0.04em",
-          color: "#4a4036", background: "none", border: "none", cursor: "pointer",
-          padding: 0, transition: "color 0.2s",
-        }}
-          onMouseEnter={e => e.target.style.color = "#1a1612"}
-          onMouseLeave={e => e.target.style.color = "#4a4036"}
-        >צור קשר</button>
+    <a className="project-card" href={project.link} target="_blank" rel="noopener noreferrer">
+      <div className="project-preview">
+        {failed ? <div className="preview-fallback"><span>BY / {String(index + 1).padStart(2, "0")}</span><strong>{project.title}</strong></div> :
+          <img src={project.image} alt={project.title} loading="lazy" onError={() => setFailed(true)} />}
+        <span className="project-open" aria-hidden="true">↗</span>
       </div>
-    </nav>
-  );
-}
-
-function HeroSection({ onContact }) {
-  return (
-    <section id="about" className="hero-section" style={{
-      minHeight: "auto", display: "flex", alignItems: "center",
-      padding: "100px 5vw 1rem",
-      maxWidth: 1280, margin: "0 auto",
-      gap: "6vw", flexWrap: "wrap",
-    }}>
-      <div style={{ flex: "1 1 340px", zIndex: 1 }}>
-        <h1 style={{
-          fontFamily: "'Rubik', sans-serif",
-          fontWeight: 600,
-          fontSize: "clamp(3.2rem, 6.5vw, 6rem)",
-          lineHeight: 1.1,
-          color: "#1a1612",
-          letterSpacing: "-0.01em",
-          marginBottom: "2rem",
-          opacity: 0, animation: "fadeUp 0.8s 0.25s forwards",
-        }}>
-          שלום, שמי<br />
-          <em style={{ fontStyle: "italic", color: "#9c8265" }}>בנימין יונה</em>
-        </h1>
-        <p style={{
-          fontFamily: "'Rubik', sans-serif", fontWeight: 300,
-          fontSize: "1.1rem", lineHeight: 1.85,
-          color: "#5a5048", maxWidth: 460,
-          marginBottom: "2.8rem",
-          opacity: 0, animation: "fadeUp 0.8s 0.55s forwards",
-        }}>
-          אני בונה אפליקציות ומוצרים דיגיטליים — ואלו התוצרים שלי.
-        </p>
-        <div style={{
-          display: "flex", gap: "1rem", flexWrap: "wrap",
-          opacity: 0, animation: "fadeUp 0.8s 0.7s forwards",
-        }}>
-          <a href="#work" style={{
-            fontFamily: "'Rubik', sans-serif", fontWeight: 500,
-            fontSize: "0.88rem", letterSpacing: "0.04em",
-            color: "#fff", background: "#1a1612",
-            padding: "0.85rem 2.2rem", borderRadius: "3px",
-            textDecoration: "none", transition: "opacity 0.2s",
-          }}
-            onMouseEnter={e => e.currentTarget.style.opacity = "0.8"}
-            onMouseLeave={e => e.currentTarget.style.opacity = "1"}
-          >לתוצרים שלי</a>
-          <button onClick={onContact} style={{
-            fontFamily: "'Rubik', sans-serif", fontWeight: 400,
-            fontSize: "0.88rem", letterSpacing: "0.04em",
-            color: "#1a1612", background: "none",
-            padding: "0.85rem 2.2rem", borderRadius: "3px",
-            border: "1px solid #c8b99a", cursor: "pointer",
-            transition: "border-color 0.2s",
-          }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = "#1a1612"}
-            onMouseLeave={e => e.currentTarget.style.borderColor = "#c8b99a"}
-          >צור קשר</button>
-        </div>
-      </div>
-
-      <div className="hero-photo" style={{
-        flex: "0 0 auto",
-        opacity: 0, animation: "fadeUp 0.9s 0.45s forwards",
-      }}>
-        <div style={{ position: "relative", width: "min(320px, 38vw)", aspectRatio: "3/4" }}>
-          <div style={{
-            position: "absolute", top: 18, left: 18,
-            width: "100%", height: "100%",
-            border: "1px solid #c8b99a",
-            borderRadius: "2px", zIndex: 0,
-          }} />
-          <div style={{
-            position: "relative", zIndex: 1,
-            width: "100%", height: "100%",
-            borderRadius: "2px", overflow: "hidden",
-            boxShadow: "0 24px 60px rgba(26,22,18,0.12)",
-          }}>
-            <img src={PHOTO_URL} alt="Binyamin Yona"
-              style={{
-                width: "100%", height: "100%",
-                objectFit: "cover", objectPosition: "center top",
-                filter: "sepia(8%) saturate(0.92) contrast(1.04)",
-              }}
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ProjectCard({ project }) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        borderRadius: "6px",
-        overflow: "hidden",
-        boxShadow: hovered ? "0 20px 50px rgba(26,22,18,0.18)" : "0 8px 24px rgba(26,22,18,0.08)",
-        transition: "box-shadow 0.3s, transform 0.3s",
-        transform: hovered ? "translateY(-4px)" : "translateY(0)",
-        background: "#fff",
-        width: "340px",
-        flexShrink: 0,
-      }}
-    >
-      <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block" }}>
-        <img
-          src={project.image}
-          alt={project.title}
-          style={{ width: "100%", aspectRatio: "16/9", objectFit: "cover", display: "block" }}
-        />
-      </a>
-      <div style={{ padding: "1.2rem 1.4rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <h3 style={{ fontFamily: "'Rubik', sans-serif", fontWeight: 600, fontSize: "1.3rem", color: "#1a1612" }}>
-          {project.title}
-        </h3>
-        {project.extraLink && (
-          <a
-            href={project.extraLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              fontFamily: "'Rubik', sans-serif", fontSize: "0.82rem", fontWeight: 500,
-              color: "#9c8265", textDecoration: "none", letterSpacing: "0.04em",
-              border: "1px solid #c8b99a", borderRadius: "3px",
-              padding: "0.4rem 0.9rem",
-              transition: "color 0.2s, border-color 0.2s",
-            }}
-            onMouseEnter={e => { e.currentTarget.style.color = "#1a1612"; e.currentTarget.style.borderColor = "#1a1612"; }}
-            onMouseLeave={e => { e.currentTarget.style.color = "#9c8265"; e.currentTarget.style.borderColor = "#c8b99a"; }}
-          >
-            {project.extraLabel || "לאתר"}
-          </a>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function ProjectRow({ items }) {
-  return (
-    <div className="projects-scroll-wrapper" style={{ overflowX: "auto", paddingBottom: "1.2rem" }}>
-      <div className="projects-row" style={{
-        display: "flex", flexDirection: "row", gap: "2rem",
-        padding: "0 5vw", width: "max-content",
-      }}>
-        {items.map(p => <ProjectCard key={p.id} project={p} />)}
-      </div>
-    </div>
-  );
-}
-
-function ProjectGroupTitle({ children }) {
-  return (
-    <h3 style={{ fontFamily: "'Rubik', sans-serif", fontWeight: 500, fontSize: "1.2rem", color: "#5a5048", margin: "3rem 0 1.5rem", padding: "0 5vw" }}>
-      {children}
-    </h3>
-  );
-}
-
-function ProjectsSection() {
-  const general = projects.filter(p => !p.college);
-  const college = projects.filter(p => p.college);
-  return (
-    <section id="work" className="projects-section" style={{ padding: "3rem 0 8rem" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 5vw" }}>
-        <p style={{ fontFamily: "'Rubik', sans-serif", fontSize: "0.75rem", letterSpacing: "0.08em", color: "#9c8265", marginBottom: "0.8rem" }}>
-          התוצרים שלי
-        </p>
-        <h2 style={{ fontFamily: "'Rubik', sans-serif", fontWeight: 600, fontSize: "clamp(2rem, 3.5vw, 3rem)", color: "#1a1612", marginBottom: "1rem" }}>
-          פרויקטים
-        </h2>
-      </div>
-      <ProjectGroupTitle>פרויקטים כלליים</ProjectGroupTitle>
-      <ProjectRow items={general} />
-      <ProjectGroupTitle>פרויקטים מקורסים במכללה</ProjectGroupTitle>
-      <ProjectRow items={college} />
-    </section>
+      <div className="project-info"><div><span className="project-type">{project.college ? "למידה ואינטראקטיביות" : "אפליקציה ומוצר דיגיטלי"}</span><h3 dir="auto">{project.title}</h3></div><span className="project-number">{String(index + 1).padStart(2, "0")}</span></div>
+    </a>
   );
 }
 
 export default function Portfolio() {
   const [showContact, setShowContact] = useState(false);
-
+  const [filter, setFilter] = useState("all");
+  const visibleProjects = projects.filter(p => filter === "all" || (filter === "college" ? p.college : !p.college));
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&display=swap');
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { background: #faf8f4; color: #1a1612; overflow-x: hidden; -webkit-font-smoothing: antialiased; direction: rtl; }
-        ::selection { background: #1a1612; color: #f5f1eb; }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #faf8f4; }
-        ::-webkit-scrollbar-thumb { background: #c8b99a; border-radius: 99px; }
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .projects-scroll-wrapper::-webkit-scrollbar { height: 4px; }
-        .projects-scroll-wrapper::-webkit-scrollbar-track { background: #faf8f4; }
-        .projects-scroll-wrapper::-webkit-scrollbar-thumb { background: #c8b99a; border-radius: 99px; }
-        .projects-scroll-wrapper { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
-        .projects-row > * { scroll-snap-align: start; }
-        @media (max-width: 640px) {
-          .hero-section {
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            padding: 90px 6vw 3rem !important;
-            min-height: unset !important;
-            gap: 2.5rem !important;
-          }
-          .hero-photo {
-            width: 100% !important;
-            max-width: 280px !important;
-            align-self: center !important;
-          }
-          .hero-photo > div:first-child {
-            width: 100% !important;
-          }
-          .nav-links { display: none !important; }
-          .projects-row > * { width: 80vw !important; }
-          .projects-section {
-            padding: 3rem 0 5rem !important;
-          }
-        }
-      `}</style>
-
-      <div style={{ background: "#faf8f4" }}>
-        <NavBar onContact={() => setShowContact(true)} />
-        <HeroSection onContact={() => setShowContact(true)} />
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 5vw" }}>
-          <div style={{ height: 1, background: "#e8e0d4" }} />
-        </div>
-        <ProjectsSection />
-      </div>
-
+      <header className="site-header"><nav className="navigation" aria-label="ניווט ראשי">
+        <a className="brand" href="#about"><span className="brand-mark">by.</span><span>בנימין יונה</span></a>
+        <div className="nav-links"><a href="#about">אודות</a><a href="#work">העבודות שלי</a></div>
+        <button className="nav-contact" onClick={() => setShowContact(true)}>בואו נדבר <span aria-hidden="true">↗</span></button>
+      </nav></header>
+      <main>
+        <section id="about" className="hero-section">
+          <div className="hero-copy"><p className="eyebrow"><span /> רעיונות שהופכים למוצרים</p>
+            <h1>שלום, אני<br /><span>בנימין יונה.</span></h1>
+            <p className="hero-description">אני בונה אפליקציות ומוצרים דיגיטליים.<br />מרעיון ראשון ועד חוויה שאפשר לגעת בה —<br className="desktop-break" /> כאן תמצאו את הדברים שיצרתי בדרך.</p>
+            <div className="hero-actions"><a className="button button-primary" href="#work">לעבודות שלי <span aria-hidden="true">↙</span></a><button className="button button-secondary" onClick={() => setShowContact(true)}>ניצור משהו יחד</button></div>
+            <div className="hero-note"><span className="note-line" /><span>פיתוח. סקרנות. תשומת לב לפרטים.</span></div>
+          </div>
+          <div className="hero-visual"><div className="photo-frame"><img src={PHOTO_URL} alt="בנימין יונה" /><span className="photo-caption">קצת קוד, הרבה יצירתיות.</span></div><span className="visual-label">THE PERSON BEHIND THE PIXELS</span><div className="photo-stamp" aria-hidden="true">רעיון.<br />קוד.<br /><span>מציאות.</span></div></div>
+        </section>
+        <section id="work" className="projects-section"><div className="section-heading"><div><p className="eyebrow">מחשבה, בנייה ותוצאה</p><h2>העבודות שלי<span>.</span></h2></div><p>מוצרים עצמאיים ופרויקטים מהלימודים.<br />כל אחד מהם הוא עוד צעד בדרך.</p></div>
+          <div className="project-toolbar"><div className="project-filters" role="group" aria-label="סינון פרויקטים">{[["all", "כל הפרויקטים"], ["general", "פרויקטים עצמאיים"], ["college", "מהלימודים"]].map(([value, label]) => <button key={value} aria-pressed={filter === value} className={filter === value ? "active" : ""} onClick={() => setFilter(value)}>{label}</button>)}</div><span className="project-count" aria-live="polite">{visibleProjects.length} פרויקטים</span></div>
+          <div className="projects-grid">{visibleProjects.map(project => <ProjectCard key={project.id} project={project} index={projects.indexOf(project)} />)}</div>
+        </section>
+        <section className="contact-section"><p className="eyebrow">הפרויקט הבא מתחיל בשיחה</p><h2>יש לכם רעיון?<br /><span>בואו נבנה אותו.</span></h2><button className="button button-primary" onClick={() => setShowContact(true)}>דברו איתי <span aria-hidden="true">↗</span></button></section>
+      </main>
+      <footer><a className="brand" href="#about"><span className="brand-mark">by.</span><span>בנימין יונה</span></a><span>נבנה עם סקרנות ותשומת לב לפרטים.</span><a href="#about">בחזרה למעלה ↑</a></footer>
       {showContact && <ContactModal onClose={() => setShowContact(false)} />}
     </>
   );
