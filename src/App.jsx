@@ -10,6 +10,12 @@ const screenshot = (url, force = false) =>
 
 const projects = [
   {
+    id: 9,
+    title: "מעון — ניהול מעונות סטודנטים",
+    link: "/projects/maon/",
+    image: "/previews/maon.svg",
+  },
+  {
     id: 1,
     title: "History",
     link: "https://history-rosy-eight.vercel.app",
